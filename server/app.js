@@ -1,14 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require('path')
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimiter = require('./middleware/rateLimiter');
 
 require('dotenv').config();
-
-// Serve static files from frontend build
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 // Routes
 const authRoutes = require('./routes/authRoutes');
@@ -55,11 +51,6 @@ app.use(express.json({ limit: '10kb' })); // Body size limit
 app.use(express.urlencoded({ extended: true, limit: '10kb' })); // good for forms data
 app.use(rateLimiter);
 
-// All other requests go to frontend
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-});
-
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/video', videoRoutes);
@@ -69,8 +60,6 @@ app.use('/api/video', videoRoutes);
 app.get('/', (req, res) => {
   res.send('STRMLY Backend API is running.');
 });
-
-
 
 // 404 Handler
 app.use((req, res) => {
