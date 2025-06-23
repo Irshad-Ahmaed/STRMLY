@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000/api";
 
@@ -26,7 +27,7 @@ const Register = () => {
         const res = await axios.post(BASE_URL + '/auth/register', formData)
         if (res) {
             console.log(res);
-            navigate('/')
+            navigate('/login')
         }
         
     } catch (error) {
