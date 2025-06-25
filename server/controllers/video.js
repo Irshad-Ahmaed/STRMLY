@@ -15,7 +15,7 @@ exports.uploadVideo = async (req, res) => {
       {
         resource_type: 'video',
         folder: 'strmly_videos',
-        timeout: 150000, 
+        timeout: 100000, 
       },
       async (error, result) => {
         if (error) {
